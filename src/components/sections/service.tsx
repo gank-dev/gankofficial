@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Reveal } from "@/components/ui/reveal";
 import {
   Smartphone,
   Cpu,
@@ -40,12 +41,7 @@ export function Service() {
     >
       <div className="mx-auto max-w-7xl px-6 py-32 lg:px-8 lg:py-44">
         <div className="grid gap-20 lg:grid-cols-[0.7fr_1.3fr]">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
-          >
+          <Reveal>
             <p className="text-xs font-medium uppercase tracking-[0.35em] text-white/35">
               What We Do
             </p>
@@ -54,12 +50,15 @@ export function Service() {
               Service built around your device.
             </h2>
 
-            <p className="mt-6 max-w-sm text-sm leading-7 text-white/40">
-              Dari diagnosis sampai perangkat kembali digunakan. Kami fokus
-              pada proses yang jelas, pengerjaan yang rapi, dan pengalaman
-              pelanggan yang lebih baik.
-            </p>
-          </motion.div>
+            <Reveal delay={0.1}>
+                <p className="max-w-sm text-sm leading-7 text-white/40">
+                    Dari diagnosis sampai perangkat kembali digunakan. Kami fokus
+                    pada proses yang jelas, pengerjaan yang rapi, dan pengalaman 
+                    pelanggan yang lebih baik.
+                </p>
+            </Reveal>
+            
+          </Reveal>
 
           <div className="divide-y divide-white/10 border-y border-white/10">
             {services.map((service, index) => {

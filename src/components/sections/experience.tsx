@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Reveal } from "@/components/ui/reveal";
 
 const process = [
   {
@@ -28,12 +29,8 @@ export function Experience() {
     >
       <div className="mx-auto max-w-7xl px-6 py-32 lg:px-8 lg:py-48">
         <div className="grid gap-20 lg:grid-cols-2 lg:gap-32">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
-          >
+         <Reveal>
+          <div>
             <p className="text-xs font-medium uppercase tracking-[0.35em] text-white/30">
               The GANK Experience
             </p>
@@ -43,21 +40,18 @@ export function Experience() {
               <br />
               More certainty.
             </h2>
-          </motion.div>
+          </div>
+         </Reveal>
 
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, delay: 0.15 }}
-            className="flex items-end"
-          >
-            <p className="max-w-lg text-base leading-8 text-white/40">
+          <Reveal delay={0.12}>
+            <div className="flex items-end">
+             <p className="max-w-lg text-base leading-8 text-white/40">
               Kami percaya servis perangkat tidak harus terasa rumit. Setiap
               tahap dibuat lebih mudah dipahami, dari perangkat masuk sampai
               perangkat kembali ke tangan pelanggan.
-            </p>
-          </motion.div>
+             </p>
+            </div>
+          </Reveal>
         </div>
 
         <div className="mt-32 grid border-y border-white/10 md:grid-cols-3">

@@ -1,3 +1,4 @@
+import { AmbientBackground } from "@/components/ui/ambient-background";
 import { Navbar } from "@/components/navigation/navbar";
 import { Hero } from "@/components/sections/hero";
 import { Service } from "@/components/sections/service";
@@ -7,7 +8,9 @@ import { Footer } from "@/components/sections/footer";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-black">
+    <main className="relative min-h-screen overflow-hidden bg-black">
+      <AmbientBackground />
+
       <Navbar />
       <Hero />
       <Service />
