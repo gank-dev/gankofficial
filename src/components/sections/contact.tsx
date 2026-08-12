@@ -36,7 +36,7 @@ export function Contact() {
             </p>
 
             <motion.a
-              href="https://wa.me/"
+              href="https://wa.me/6285804286029"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="group mt-12 inline-flex items-center gap-4 rounded-full bg-white px-6 py-4 text-sm font-medium text-black transition-all duration-300 hover:bg-white/90"
