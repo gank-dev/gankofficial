@@ -2,8 +2,19 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "GANK OFFICIAL",
-  description: "GANK OFFICIAL",
+  title: {
+    default: "GANK OFFICIAL",
+    template: "%s | GANK OFFICIAL",
+  },
+  description:
+    "GANK OFFICIAL. Professional device repair with a modern experience.",
+  keywords: [
+    "GANK OFFICIAL",
+    "service HP",
+    "servis HP",
+    "repair smartphone",
+    "phone repair",
+  ],
 };
 
 export default function RootLayout({

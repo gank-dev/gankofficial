@@ -28,7 +28,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 35 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.1 }}
-            className="text-5xl font-medium leading-[0.95] tracking-[-0.055em] text-white sm:text-7xl lg:text-9xl"
+            className="max-w-5xl text-[clamp(3.5rem,12vw,9rem)] font-medium leading-[0.9] tracking-[-0.06em] text-white"
           >
             Repair.
             <br />

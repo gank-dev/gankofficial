@@ -76,7 +76,7 @@ export function Service() {
                     duration: 0.7,
                     delay: index * 0.1,
                   }}
-                  className="group grid gap-8 py-10 transition-colors duration-500 hover:bg-white/[0.025] sm:grid-cols-[60px_60px_1fr_40px] sm:items-center"
+                  className="group grid gap-6 py-8 transition-colors duration-500 hover:bg-white/[0.025] sm:grid-cols-[60px_60px_1fr_40px] sm:items-center sm:gap-8 sm:py-10"
                 >
                   <span className="text-xs text-white/25">
                     {service.number}
@@ -87,7 +87,7 @@ export function Service() {
                   </div>
 
                   <div>
-                    <h3 className="text-xl font-medium tracking-tight text-white">
+                    <h3 className="text-lg font-medium tracking-tight text-white sm:text-xl">
                       {service.title}
                     </h3>
 
