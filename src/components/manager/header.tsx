@@ -1,4 +1,24 @@
-export function Header() {
+import type { ManagerRole } from "@/lib/manager/navigation";
+
+type HeaderProps = {
+  fullName: string;
+  role: ManagerRole;
+};
+
+const roleLabels: Record<ManagerRole, string> = {
+  OWNER: "Owner",
+  ADMIN: "Admin",
+  TECHNICIAN: "Teknisi",
+};
+
+export function Header({
+  fullName,
+  role,
+}: HeaderProps) {
+  const roleLabel = roleLabels[role];
+
+  const initial = fullName.trim().charAt(0).toUpperCase() || "?";
+
   return (
     <header className="flex h-20 items-center justify-between border-b border-white/10 px-6 lg:px-8">
       <div>
@@ -13,16 +33,16 @@ export function Header() {
 
       <div className="flex items-center gap-3">
         <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-sm font-semibold text-black">
-          O
+          {initial}
         </div>
 
         <div className="hidden sm:block">
           <p className="text-sm font-medium">
-            OWNER
+            {fullName}
           </p>
 
           <p className="text-xs text-white/40">
-            GANK SERVICE
+            {roleLabel} · GANK SERVICE
           </p>
         </div>
       </div>

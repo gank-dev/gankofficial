@@ -2,66 +2,25 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import {
-  BarChart3,
-  CreditCard,
-  LayoutDashboard,
-  LogOut,
-  Package,
-  Settings,
-  Smartphone,
-  Users,
-  Wrench,
-} from "lucide-react";
+import { LogOut } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import {
+  navigation,
+  type ManagerRole,
+} from "@/lib/manager/navigation";
 
-const navigation = [
-  {
-    label: "Dashboard",
-    href: "/manager",
-    icon: LayoutDashboard,
-  },
-  {
-    label: "Servis",
-    href: "/manager/services",
-    icon: Wrench,
-  },
-  {
-    label: "Pelanggan",
-    href: "/manager/customers",
-    icon: Users,
-  },
-  {
-    label: "Inventory",
-    href: "/manager/inventory",
-    icon: Package,
-  },
-  {
-    label: "Pembayaran",
-    href: "/manager/payments",
-    icon: CreditCard,
-  },
-  {
-    label: "Laporan",
-    href: "/manager/reports",
-    icon: BarChart3,
-  },
-  {
-    label: "Teknisi",
-    href: "/manager/technicians",
-    icon: Smartphone,
-  },
-  {
-    label: "Pengaturan",
-    href: "/manager/settings",
-    icon: Settings,
-  },
-];
-
-export function Sidebar() {
+export function Sidebar({
+  role,
+}: {
+  role: ManagerRole;
+}) {
   const pathname = usePathname();
   const router = useRouter();
   const supabase = createClient();
+
+  const visibleNavigation = navigation.filter((item) =>
+    item.roles.includes(role),
+  );
 
   async function handleLogout() {
     await supabase.auth.signOut();
@@ -76,6 +35,7 @@ export function Sidebar() {
           <p className="text-xs font-medium uppercase tracking-[0.3em] text-white/40">
             GANK SERVICE
           </p>
+
           <p className="mt-1 text-lg font-semibold tracking-tight">
             Manager
           </p>
@@ -83,7 +43,7 @@ export function Sidebar() {
       </div>
 
       <nav className="flex-1 space-y-1 p-4">
-        {navigation.map((item) => {
+        {visibleNavigation.map((item) => {
           const Icon = item.icon;
 
           const active =

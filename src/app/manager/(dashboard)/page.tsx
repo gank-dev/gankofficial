@@ -46,6 +46,7 @@ function formatDate(value: string) {
     year: "numeric",
     hour: "2-digit",
     minute: "2-digit",
+    timeZone: "Asia/Jakarta",
   }).format(new Date(value));
 }
 
@@ -73,14 +74,34 @@ function statusClass(status: string) {
   }
 }
 
+function getJakartaDayBounds() {
+  const now = new Date();
+
+  const jakartaDate = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Jakarta",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(now);
+
+  const startOfDay = new Date(`${jakartaDate}T00:00:00+07:00`);
+  const startOfNextDay = new Date(
+    `${jakartaDate}T00:00:00+07:00`,
+  );
+
+  startOfNextDay.setUTCDate(startOfNextDay.getUTCDate() + 1);
+
+  return {
+    startOfDayIso: startOfDay.toISOString(),
+    startOfNextDayIso: startOfNextDay.toISOString(),
+  };
+}
+
 export default async function ManagerDashboard() {
   const supabase = await createClient();
 
-  const today = new Date();
-  const startOfDay = new Date(today);
-  startOfDay.setHours(0, 0, 0, 0);
-
-  const startOfDayIso = startOfDay.toISOString();
+  const { startOfDayIso, startOfNextDayIso } =
+    getJakartaDayBounds();
 
   const [
     totalResult,
@@ -98,7 +119,8 @@ export default async function ManagerDashboard() {
     supabase
       .from("service_orders")
       .select("id", { count: "exact", head: true })
-      .gte("created_at", startOfDayIso),
+      .gte("received_at", startOfDayIso)
+      .lt("received_at", startOfNextDayIso),
 
     supabase
       .from("service_orders")
@@ -129,7 +151,7 @@ export default async function ManagerDashboard() {
         complaint,
         estimated_cost,
         final_cost,
-        created_at,
+        received_at,
         customers (
           name,
           phone
@@ -139,7 +161,7 @@ export default async function ManagerDashboard() {
           model
         )
       `)
-      .order("created_at", { ascending: false })
+      .order("received_at", { ascending: false })
       .limit(8),
   ]);
 
@@ -223,6 +245,7 @@ export default async function ManagerDashboard() {
           <div className="text-sm text-white/40">
             {new Intl.DateTimeFormat("id-ID", {
               dateStyle: "full",
+              timeZone: "Asia/Jakarta",
             }).format(new Date())}
           </div>
         </div>
@@ -343,7 +366,7 @@ export default async function ManagerDashboard() {
                       </p>
 
                       <p className="mt-1 text-xs text-white/50">
-                        {formatDate(service.created_at)}
+                        {formatDate(service.received_at)}
                       </p>
                     </div>
                   </div>

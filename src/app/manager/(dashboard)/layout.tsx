@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { Sidebar } from "@/components/manager/sidebar";
 import { Header } from "@/components/manager/header";
 import { MobileNav } from "@/components/manager/mobile-nav";
+import { Sidebar } from "@/components/manager/sidebar";
+import { getManagerProfile } from "@/lib/manager/auth";
 
 export const metadata: Metadata = {
   title: {
@@ -11,26 +12,31 @@ export const metadata: Metadata = {
   description: "Internal management system for GANK SERVICE.",
 };
 
-export default function ManagerLayout({
+export default async function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const profile = await getManagerProfile();
+
   return (
-    <section className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black text-white">
       <div className="flex min-h-screen">
-        <Sidebar />
+        <Sidebar role={profile.role} />
 
         <div className="flex min-w-0 flex-1 flex-col">
-          <Header />
+          <Header
+            fullName={profile.full_name}
+            role={profile.role}
+          />
 
-          <main className="flex-1 p-6 pb-24 lg:p-8">
+          <main className="flex-1 p-6 pb-24 lg:p-8 lg:pb-8">
             {children}
           </main>
         </div>
       </div>
 
-      <MobileNav />
-    </section>
+      <MobileNav role={profile.role} />
+    </div>
   );
 }
